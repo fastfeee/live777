@@ -23,6 +23,9 @@ use crate::forward::PeerForward;
 mod config;
 mod forward;
 
+const PAGE_WHIP: &str = include_str!("embed/whip.html");
+const PAGE_WHEP: &str = include_str!("embed/whep.html");
+
 #[tokio::main]
 async fn main() {
     env_logger::builder()
@@ -43,12 +46,14 @@ async fn main() {
         .route(
             "/whip/:id",
             post(whip)
+                .get(whip_index)
                 .patch(add_ice_candidate)
                 .options(ice_server_config),
         )
         .route(
             "/whep/:id",
             post(whep)
+                .get(whep_index)
                 .patch(add_ice_candidate)
                 .options(ice_server_config),
         )
@@ -64,6 +69,20 @@ async fn main() {
 struct AppState {
     forwards: Arc<RwLock<HashMap<String, PeerForward>>>,
     config: Config,
+}
+
+async fn whip_index() -> Result<Response<String>, AppError> {
+    Ok(Response::builder()
+        .status(StatusCode::OK)
+        .header("Content-Type", "text/html")
+        .body(PAGE_WHIP.to_string())?)
+}
+
+async fn whep_index() -> Result<Response<String>, AppError> {
+    Ok(Response::builder()
+        .status(StatusCode::OK)
+        .header("Content-Type", "text/html")
+        .body(PAGE_WHEP.to_string())?)
 }
 
 async fn whip(
