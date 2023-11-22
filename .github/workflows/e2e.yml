@@ -27,8 +27,8 @@ jobs:
             - name: Install Tools
               run: |
                   sudo apt update -y && sudo apt install ffmpeg && sudo apt install docker
-                  wget https://raw.githubusercontent.com/fastfeee/live777/ci-e2e/multirun_test.sh
-                  chmod +x multirun_test.sh
+                  wget https://gist.github.com/a-wing/f7b074770b558e114911e339bb6a3e84/raw/9529d71fb8abe16fe4900a0232c77b2621c8d318/multirun.sh
+                  chmod +x multirun.sh
                   git clone https://github.com/Netflix/vmaf.git
                   cd vmaf
                   docker build -t vmaf .

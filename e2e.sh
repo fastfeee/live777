@@ -46,7 +46,7 @@ EOF
 
 chmod +x vmaf.sh
 
-./multirun_test.sh \
+./multirun.sh \
     "${TARGET_DIR}/live777" \
     "./out2.sh" \
     "./out1.sh" \
