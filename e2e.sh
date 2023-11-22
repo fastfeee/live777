@@ -18,7 +18,7 @@ chmod +x out1.sh
 
 cat >whip.sh <<EOF
 #!/bin/bash
-${TARGET_DIR}/whipinto -c vp8 -u http://localhost:7777/whip/777 --port 5003 --command "ffmpeg -re -f lavfi -i testsrc=size=640x480:rate=30 -vcodec libvpx -cpu-used 5 -deadline 1 -g 10 -error-resilient 1 -auto-alt-ref 1 -f rtp 'rtp://127.0.0.1:{port}?pkt_size=1200'"
+${TARGET_DIR}/whipinto -c vp8 -u http://localhost:7777/whip/777 
 EOF
 
 chmod +x whip.sh
@@ -26,8 +26,7 @@ chmod +x ${TARGET_DIR}/whipinto
 
 cat >whep.sh <<EOF
 #!/bin/bash
-sleep 10
-${TARGET_DIR}/whepfrom -c vp8 -u http://localhost:7777/whep/777 -t localhost:5004 --command "ffplay -protocol_whitelist rtp,file,udp -i stream.sdp"
+${TARGET_DIR}/whepfrom -c vp8 -u http://localhost:7777/whep/777 -t localhost:5004 
 EOF
 
 chmod +x whep.sh
@@ -53,8 +52,11 @@ chmod +x vmaf.sh
     "./out1.sh" \
     "./whip.sh" \
     "./whep.sh" \
-    sh -c "(sleep 20 && killall 'out1.sh' && ./vmaf.sh)"  
-    
+    "sleep 20" \
+    "killall 'out1.sh'" \
+    "./vmaf.sh"
+
+./vmaf.sh
 rm stream.sdp
 rm whip.sh
 rm whep.sh
