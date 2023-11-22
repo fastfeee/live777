@@ -53,7 +53,7 @@ chmod +x vmaf.sh
     "./out1.sh" \
     "./whip.sh" \
     "./whep.sh" \
-    "sleep 20 && killall 'out1.sh' && ./vmaf.sh "  
+    "(sleep 20 && killall 'out1.sh' && ./vmaf.sh)"  
     
 rm stream.sdp
 rm whip.sh
