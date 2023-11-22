@@ -51,12 +51,8 @@ chmod +x vmaf.sh
     "./out2.sh" \
     "./out1.sh" \
     "./whip.sh" \
-    "./whep.sh" \
-    "sleep 20" \
-    "killall 'out1.sh'" \
-    "./vmaf.sh"
-
-./vmaf.sh
+    "./whep.sh" 
+    
 rm stream.sdp
 rm whip.sh
 rm whep.sh
