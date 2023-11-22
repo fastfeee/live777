@@ -54,7 +54,7 @@ chmod +x vmaf.sh
     "./whip.sh" \
     "./whep.sh" \
     "sleep 30"
-    "pkill 'out1.sh' " \
+    "killall 'out1.sh' " \
     "./vmaf.sh "
 
 rm stream.sdp
