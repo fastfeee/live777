@@ -53,7 +53,7 @@ chmod +x vmaf.sh
     "./out1.sh" \
     "./whip.sh" \
     "./whep.sh" \
-    "sleep 30"
+    "sleep 30"  \
     "killall 'out1.sh' " \
     "./vmaf.sh "
 
