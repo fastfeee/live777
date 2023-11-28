@@ -11,10 +11,17 @@ EOF
 
 cat >out1.sh <<EOF
 #!/bin/bash
-ffmpeg -re -f lavfi -i testsrc=size=640x480:rate=30 -c:v libvpx -b:v 1M -f rtp 'rtp://127.0.0.1:5003?pkt_size=1200' -an output1.yuv
+ffmpeg -re -f lavfi -i testsrc=size=640x480:rate=30 -c:v libvpx -b:v 1M -f rtp 'rtp://127.0.0.1:5003?pkt_size=1200' -an output1.webm
 EOF
 
 chmod +x out1.sh
+
+cat >push.sh <<EOF
+#!/bin/bash
+ffmpeg -re -f lavfi -i testsrc=size=640x480:rate=30 -vcodec libvpx -f rtp 'rtp://127.0.0.1:5003?pkt_size=1200'
+EOF
+
+chmod +x push.sh
 
 cat >whip.sh <<EOF
 #!/bin/bash
@@ -34,29 +41,35 @@ chmod +x ${TARGET_DIR}/whepfrom
 
 cat >out2.sh <<EOF
 #!/bin/bash
-ffmpeg -protocol_whitelist rtp,file,udp -i stream.sdp -c:v copy -an output2.yuv
+ffmpeg -protocol_whitelist rtp,file,udp -i stream.sdp -c:v copy -an output2.webm
 EOF
 
 chmod +x out2.sh
 
-cat >vmaf.sh <<EOF
-#!/bin/bash
-docker run --rm -v $(pwd):/files vmaf     yuv420p 640 480     /files/output1.yuv     /files/output2.yuv     --out-fmt json
-EOF
-
-chmod +x vmaf.sh
 
 ./multirun.sh \
     "${TARGET_DIR}/live777" \
-    "./out2.sh" \
-    "./out1.sh" \
+    "./push.sh" \
     "./whip.sh" \
-    "./whep.sh" 
+    "./whep.sh" &
+sleep 5
+
+if [ -n "$(ps -p ${PID[2]} -o pid=)" ]; then
+  echo "Stopping push.sh pid ${PID[2]}"
+  kill ${PID[2]}
+fi
+
+sleep 10
+
+./out2.sh &
+./out1.sh &
+
+sleep 15    
     
 rm stream.sdp
 rm whip.sh
 rm whep.sh
 rm out1.sh
 rm out2.sh
-rm vmaf.sh
+
 
