@@ -48,6 +48,7 @@ chmod +x eval.sh
 
 ./test.sh \
     "${TARGET_DIR}/live777" \
+    sleep 2 \
     "./whip.sh" \
     "./whep.sh" \
     "./out2.sh" \
