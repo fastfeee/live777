@@ -11,7 +11,7 @@ EOF
 
 cat >out1.sh <<EOF
 #!/bin/bash
-ffmpeg -re -f lavfi -i testsrc=size=640x480:rate=30 -vcodec libvpx -f rtp 'rtp://127.0.0.1:5003?pkt_size=1200' -c:v libvpx  -quality realtime output1.webm
+${TARGET_DIR}/ffmpeg -re -f lavfi -i testsrc=size=640x480:rate=30 -vcodec libvpx -f rtp 'rtp://127.0.0.1:5003?pkt_size=1200' -c:v libvpx  -quality realtime output1.webm
 EOF
 
 chmod +x out1.sh
@@ -34,7 +34,7 @@ chmod +x ${TARGET_DIR}/whepfrom
 
 cat >out2.sh <<EOF
 #!/bin/bash
-ffmpeg -protocol_whitelist rtp,file,udp -i stream.sdp -c:v copy -an output2.webm
+${TARGET_DIR}/ffmpeg -protocol_whitelist rtp,file,udp -i stream.sdp -c:v copy -an output2.webm
 EOF
 
 chmod +x out2.sh
