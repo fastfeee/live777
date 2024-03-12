@@ -21,7 +21,6 @@ chmod +x eval.sh
 
 ./multirun.sh \
     "${TARGET_DIR}/live777" \
-    "sleep 2"  \
     "${TARGET_DIR}/whipinto -c vp8 -u http://localhost:7777/whip/777 --port 5003" \
     "${TARGET_DIR}/whepfrom -c vp8 -u http://localhost:7777/whep/777 -t localhost:5004" \
     "ffmpeg -protocol_whitelist rtp,file,udp -i stream.sdp -c:v copy -an output2.webm" \
