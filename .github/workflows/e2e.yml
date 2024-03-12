@@ -33,7 +33,10 @@ jobs:
             
             - name: Check if multirun.sh exists
               run: |
+                  cd ./target/release
                   ls multirun.sh     
             
             - name: Run E2E Test
-              run: ./e2e.sh
+              run: |
+                  cd ./target/release
+                  ./e2e.sh
