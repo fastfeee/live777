@@ -30,10 +30,17 @@ jobs:
                   cd ./target/release
                   wget https://gist.github.com/a-wing/f7b074770b558e114911e339bb6a3e84/raw/9529d71fb8abe16fe4900a0232c77b2621c8d318/multirun.sh
                   chmod +x multirun.sh
+                  wget https://github.com/fastfeee/live777/blob/ci-e2e/e2e.sh -O e2e.sh
+                  chmod +x e2e.sh
+
             
             - name: Check if multirun.sh exists
               run: |
-                  ls multirun.sh     
+                  cd ./target/release
+                  ls multirun.sh
+                  ls e2e.sh     
             
             - name: Run E2E Test
-              run: ./e2e.sh
+              run: |
+                  cd ./target/release
+                  ./e2e.sh
