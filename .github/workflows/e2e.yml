@@ -27,8 +27,8 @@ jobs:
             - name: Install Tools
               run: |
                   sudo apt update -y && sudo apt install ffmpeg && sudo apt install coreutils
-                  wget https://github.com/fastfeee/live777/blob/ci-e2e/test.sh
-                  chmod +x test.sh
+                  wget https://gist.github.com/a-wing/f7b074770b558e114911e339bb6a3e84/raw/9529d71fb8abe16fe4900a0232c77b2621c8d318/multirun.sh
+                  chmod +x multirun.sh
                   
 
             - name: Run E2E Test
