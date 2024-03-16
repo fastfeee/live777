@@ -32,6 +32,7 @@ jobs:
                   chmod +x multirun.sh
                   wget https://github.com/fastfeee/live777/blob/ci-e2e/e2e.sh -O e2e.sh
                   chmod +x e2e.sh
+                  cat e2e.sh
 
             
             - name: Check if multirun.sh exists
