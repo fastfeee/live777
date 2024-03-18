@@ -36,18 +36,20 @@ pkill whepfrom
 ffmpeg -i output1.webm -pix_fmt yuv420p output1.yuv
 ffmpeg -i output2.webm -pix_fmt yuv420p output2.yuv
 
-# 检查是否成功创建stream.sdp文件
-if [ -f "output2.yuv" ]; then
-    echo "output2.yuv 文件已成功生成，路径为: $(readlink -f output2.yuv)"
+# 检查是否成功创建output2.yuv文件
+if [ -f "output1.yuv" ] && [ -f "output2.yuv" ]; then
+    echo "output1.yuv 和 output2.yuv 文件均已成功生成"
+    echo "output1.yuv 文件路径为: $(readlink -f output1.yuv)"
+    echo "output2.yuv 文件路径为: $(readlink -f output2.yuv)"
 
-    # 执行后续的命令
+    # 如果两个文件都生成成功，可以继续执行后续的命令
     # ...
 
 else
-    echo "Error: output2.yuv 文件未生成"
+    echo "Error: output1.yuv 或 output2.yuv 文件未完全生成"
 fi
 
-docker run --rm -v $(pwd):/files vmaf     yuv420p 640 480   -r  /files/output1.yuv     /files/output2.yuv
+docker run --rm -v $(pwd):/files vmaf   yuv420p 640 480  /files/output1.yuv     /files/output2.yuv --out-fmt json
 
 rm stream.sdp
 
