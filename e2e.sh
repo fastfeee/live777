@@ -50,7 +50,7 @@ else
 fi
 
 ffmpeg -i output1.webm -i output2.webm -lavfi psnr -f null -
-docker run --rm -v $(pwd):/files vmaf   yuv420p 640 480   -r /files/output1.webm     /files/output2.webm
+docker run --rm -v $(pwd):/files vmaf  -r /files/output1.webm     /files/output2.webm
 rm stream.sdp
 
 
