@@ -35,6 +35,19 @@ pkill whipinto
 pkill whepfrom
 ffmpeg -i output1.webm -pix_fmt yuv420p output1.yuv
 ffmpeg -i output2.webm -pix_fmt yuv420p output2.yuv
+
+# 检查是否成功创建stream.sdp文件
+if [ -f "output2.yuv" ]; then
+    echo "output2.yuv 文件已成功生成，路径为: $(readlink -f output2.yuv)"
+
+    # 执行后续的命令
+    # ...
+
+else
+    echo "Error: output2.yuv 文件未生成"
+fi
+
+docker run --rm -v $(pwd):/files vmaf     yuv420p 640 480     /files/output1.yuv     /files/output2.yuv
 rm stream.sdp
 
 
