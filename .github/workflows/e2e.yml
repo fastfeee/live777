@@ -44,4 +44,4 @@ jobs:
             - name: Eval video 
               run: |
                   cd ./target/release
-                  sudo docker run --rm -v $(pwd):/files vmaf     yuv420p 640 480     /files/output1.yuv     /files/output2.yuv     --out-fmt json
+                  sudo docker run --rm -v $(pwd):/files vmaf     yuv420p 640 480     /files/output1.yuv     /files/output2.yuv
