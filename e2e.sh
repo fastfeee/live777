@@ -50,7 +50,8 @@ else
 fi
 
 ffmpeg -i output1.webm -i output2.webm -lavfi psnr -f null -
-docker run --rm -v $(pwd):/files vmaf  -r /files/output1.webm     /files/output2.webm
+ffmpeg -i output1.webm -i output2.webm -lavfi "[0:v][1:v]libvmaf=psnr=1:log_fmt=json:log_path=vmaf.json" -f null -
+# docker run --rm -v $(pwd):/files vmaf  -r /files/output1.webm     /files/output2.webm
 rm stream.sdp
 
 
