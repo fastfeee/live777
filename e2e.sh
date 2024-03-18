@@ -47,7 +47,8 @@ else
     echo "Error: output2.yuv 文件未生成"
 fi
 
-docker run --rm -v $(pwd):/files vmaf     yuv420p 640 480     /files/output1.yuv     /files/output2.yuv
+docker run --rm -v $(pwd):/files vmaf     yuv420p 640 480   -r  /files/output1.yuv     /files/output2.yuv
+
 rm stream.sdp
 
 
