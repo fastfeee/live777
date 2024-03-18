@@ -49,7 +49,7 @@ else
     echo "Error: output1.yuv 或 output2.yuv 文件未完全生成"
 fi
 
-docker run --rm -v $(pwd):/files vmaf   yuv420p 640 480  /files/output1.yuv     /files/output2.yuv --out-fmt json
+docker run --rm -v $(pwd):/files vmaf   yuv420p 640 480   -r /files/output1.yuv     /files/output1.yuv
 
 rm stream.sdp
 
