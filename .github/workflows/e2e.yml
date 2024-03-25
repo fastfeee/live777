@@ -33,8 +33,9 @@ jobs:
             - name: Install vmaf
               run: |
                   sudo apt install docker
-                  git clone https://github.com/Netflix/vmaf.git
-                  cd ./vmaf
+                  wget https://github.com/Netflix/vmaf/archive/refs/tags/v2.3.0.tar.gz
+                  tar -zxvf v2.3.0.tar.gz
+                  cd ./vmaf-2.3.0
                   docker build -t vmaf .
             - name: Run E2E Test
               run: |

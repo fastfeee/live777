@@ -33,14 +33,14 @@ sleep 15
 pkill live777
 pkill whipinto
 pkill whepfrom
-# ffmpeg -i output1.webm -pix_fmt yuv420p output1.yuv
-# ffmpeg -i output2.webm -pix_fmt yuv420p output2.yuv
+ffmpeg -i output1.webm -pix_fmt yuv420p output1.yuv
+ffmpeg -i output2.webm -pix_fmt yuv420p output2.yuv
 
 # 检查是否成功创建output2.yuv文件
-if [ -f "output1.webm" ] && [ -f "output2.webm" ]; then
-    echo "output1.webm 和 output2.webm 文件均已成功生成"
-    echo "output1.webm 文件路径为: $(readlink -f output1.webm)"
-    echo "output2.webm 文件路径为: $(readlink -f output2.webm)"
+if [ -f "output1.yuv" ] && [ -f "output2.yuv" ]; then
+    echo "output1.yuv 和 output2.yuv 文件均已成功生成"
+    echo "output1.yuv 文件路径为: $(readlink -f output1.yuv)"
+    echo "output2.yuv 文件路径为: $(readlink -f output2.yuv)"
 
     # 如果两个文件都生成成功，可以继续执行后续的命令
     # ...
@@ -50,8 +50,7 @@ else
 fi
 
 ffmpeg -i output1.webm -i output2.webm -lavfi psnr -f null -
-ffmpeg -i output1.webm -i output2.webm -lavfi "[0:v][1:v]libvmaf=psnr=1:log_fmt=json:log_path=vmaf.json" -f null -
-# docker run --rm -v $(pwd):/files vmaf  -r /files/output1.webm     /files/output2.webm
+docker run --rm -v $(pwd):/files vmaf yuv420p 640 480 /files/output1.yuv   /files/output2.yuv --out-fmt json
 rm stream.sdp
 
 
