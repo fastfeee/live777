@@ -26,17 +26,8 @@ jobs:
 
             - name: Install Tools
               run: |
-                  sudo apt update -y && sudo apt install ffmpeg -y && sudo apt install python3-pip -y
-                  pip3 install opencv-python && pip3 install Pillow
-                  cd ./target/release
-                  wget https://raw.githubusercontent.com/fastfeee/live777/ci-e2e/test.sh
-                  wget https://raw.githubusercontent.com/fastfeee/live777/ci-e2e/e2e.sh
-                  wget https://raw.githubusercontent.com/fastfeee/live777/ci-e2e/blankCut.py
-                  wget https://raw.githubusercontent.com/fastfeee/live777/ci-e2e/blankInsert.py
-                  chmod +x test.sh
-                  chmod +x e2e.sh
-                  chmod +x blankCut.py
-                  chmod +x blankInsert.py
+                  apt update -y &&  apt install ffmpeg  &&  python3-pip
+                  pip3 install opencv-python && Pillow
             - name: Install vmaf
               run: |
                   sudo apt install docker
@@ -46,7 +37,6 @@ jobs:
                   docker build -t vmaf .
             - name: Run E2E Test
               run: |
-                  cd ./target/release
                   ./test.sh
 
 

@@ -1,40 +1,11 @@
 #!/bin/bash
 
-ffmpeg -re -f lavfi -i testsrc=size=640x480:rate=25 -vcodec libvpx -f rtp 'rtp://127.0.0.1:5003?pkt_size=1200' -c:v libvpx  -quality realtime input.webm &
-sleep 10
+ffmpeg -f lavfi -i testsrc=size=640x480:rate=25 -t 10 -c:v libvpx input.webm
 
-pgrep -f "ffmpeg -re -f lavfi -i testsrc=size=640x480:rate=25" | xargs kill
 
-# 检查是否成功创建input.webm文件
-if [ -f "input.webm" ]; then
-    echo "input.webm 文件已成功生成，路径为: $(readlink -f input.webm)"
-
-else
-    echo "Error: input.webm 文件未生成"
-fi
-
-# 检查blankInsert.py文件是否存在
-if [ -f "blankInsert.py" ]; then
-    echo "blankInsert.py 文件已成功生成，路径为: $(readlink -f blankInsert.py)"
-else
-    echo "Error: blankInsert.py 文件未生成"
-fi
-
-mkdir frame && cd frame
-mv ../input.webm ./
-mv ../blankInsert.py ./
 ffmpeg -i input.webm frames_%04d.png
 python3 blankInsert.py
 ffmpeg -framerate 25 -i frames_%04d.png -c:v libvpx -pix_fmt yuv420p output1.webm
-# 检查是否成功创建output1.webm文件
-if [ -f "output1.webm" ]; then
-    echo "output1.webm 文件已成功生成，路径为: $(readlink -f output1.webm)"
-else
-    echo "Error: output1.webm 文件未生成"
-fi
-mv output1.webm ../
-cd ..
-rm -r frame
 
 ./e2e.sh
 
