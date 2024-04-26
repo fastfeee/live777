@@ -27,7 +27,7 @@ jobs:
             - name: Install Tools
               run: |
                   sudo apt update -y &&  sudo apt install ffmpeg  &&  sudo apt install python3-pip
-                  pip3 install opencv-python && Pillow
+                  pip3 install opencv-python && pip3 install Pillow
             - name: Install vmaf
               run: |
                   sudo apt install docker
