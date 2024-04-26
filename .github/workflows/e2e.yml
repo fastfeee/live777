@@ -37,6 +37,7 @@ jobs:
                   docker build -t vmaf .
             - name: Run E2E Test
               run: |
+                  ls
                   sudo ./test.sh
 
 
