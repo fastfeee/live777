@@ -1,16 +1,17 @@
+#!/usr/bin/env python3
 from PIL import Image
 import os
 
 def create_blank_image_like(input_image_path):
     # 打开输入图片
     input_image = Image.open(input_image_path)
-    
+
     # 获取输入图片的宽度和高度
     width, height = input_image.size
-    
+
     # 创建一个与输入图片相同大小的空白图像，背景为白色
     blank_image = Image.new("RGB", (width, height), "white")
-    
+
     return blank_image
 
 # 指定文件夹路径
