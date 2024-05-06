@@ -38,7 +38,7 @@ jobs:
             - name: Run E2E Test
               run: |
                   ls
-                  cd /live777/E2Etest
+                  cd ./E2Etest
                   chmod +x test.sh  e2e.sh blankInsert.py blankCut.py
                   ./test.sh
 
