@@ -2,10 +2,9 @@
 
 ffmpeg -f lavfi -i testsrc=size=640x480:rate=25 -t 10 -c:v libvpx input.webm
 
-
-ffmpeg -i input.webm frames_%04d.png
+ffmpeg -i input.webm frames_%03d.png
 python3 blankInsert.py
-ffmpeg -framerate 25 -i frames_%04d.png -c:v libvpx -pix_fmt yuv420p output1.webm
+ffmpeg -framerate 25 -i frames_%03d.png -c:v libvpx -pix_fmt yuv420p output1.webm
 
 ./e2e.sh
 

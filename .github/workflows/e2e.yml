@@ -37,9 +37,8 @@ jobs:
                   docker build -t vmaf .
             - name: Run E2E Test
               run: |
-
-                  chmod +x test.sh  e2e.sh blankInsert.py blankCut.py test.py
-                  python3 test.py
-                  sudo ./test.sh
+                  cd ./live777/E2Etest
+                  chmod +x test.sh  e2e.sh blankInsert.py blankCut.py
+                  ./test.sh
 
 
